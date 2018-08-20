@@ -4,6 +4,8 @@ target/*
 
 .idea
 
+.settings
+
 # Log file
 *.log
 
