@@ -19,8 +19,9 @@ public class UserDataController extends LoginController implements HttpHandler {
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         user = UserRepository.instance().getUserBySessionId(HttpCookie.parse(cookieStr).get(0).toString());
 
-        setResponse(constructResponse());
+
         try {
+            setResponse(constructResponse());
             httpExchange.getResponseHeaders().set("Content-Type", "application/json");
             sendResponse();
         } catch (IOException e) {
@@ -28,10 +29,11 @@ public class UserDataController extends LoginController implements HttpHandler {
         }
     }
 
-    private String constructResponse() {
+    private String constructResponse() throws IOException {
         if (user != null) {
             return getJSON(user.getFirstName(), user.getLastName());
         } else {
+            redirect("login");
             return getJSON("undefined", "undefined");
         }
     }
