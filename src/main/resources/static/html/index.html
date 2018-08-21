@@ -8,11 +8,11 @@
 <body>
     <div id="login-container">
         <div id="login-box">
-            <form id="input-box">
+            <form id="input-box" method="POST">
                 <label>Login: <input name="login" id="login" autofocus="on" autocomplete="off"></label>
                 <label>Password: <input name="password" id="password" type="password"></label>
             </form>
-            <button id="login-button" form="input-box"  type="submit">Log in!</button>
+            <button id="login-button" form="input-box"  type="submit" formmethod="POST">Log in!</button>
         </div>
     </div>
 </body>
