@@ -10,6 +10,8 @@ public class App {
 
         httpServer.createContext("/login", new LoginController());
 
+        httpServer.createContext("/static", new Static());
+
         httpServer.setExecutor(null);
 
         httpServer.start();
