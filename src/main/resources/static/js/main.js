@@ -2,11 +2,12 @@ function setHeaderWithUserName() {
     let xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = () => {
-        if (this.readyState == 4 & this.status == 200) {
-            let json = JSON.parse(this.responseText);
+        if (xhttp.readyState == 4 & xhttp.status == 200) {
+            let json = JSON.parse(xhttp.responseText);
             if (json) {
-                let header = document.getElementsByTagName("h1")[0];
-                header.textContent = "Welcome " + json.fistName + "!";
+                let header = document.createElement("h1");
+                header.textContent = "Welcome " + json.firstName + "!";
+                document.getElementsByClassName("container")[0].appendChild(header);
             }
         }
     };
