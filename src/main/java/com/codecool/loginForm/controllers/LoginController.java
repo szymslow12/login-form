@@ -1,5 +1,6 @@
 package com.codecool.loginForm.controllers;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -39,11 +40,30 @@ public class LoginController implements HttpHandler {
     }
 
 
-    private void sendResponse() throws IOException {
+    void setHttpExchange(HttpExchange httpExchange) {
+        this.httpExchange = httpExchange;
+    }
+
+
+    void setResponse(String response) {
+        this.response = response;
+    }
+
+
+    void sendResponse() throws IOException {
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+    }
+
+
+    void redirect(String location) throws IOException
+    {
+        Headers headers = httpExchange.getResponseHeaders();
+        headers.add("Location", location);
+        httpExchange.sendResponseHeaders(302, -1);
+        httpExchange.close();
     }
 
 
@@ -63,7 +83,7 @@ public class LoginController implements HttpHandler {
     }
 
 
-    private String buildHtmlPage(String fileName) throws FileNotFoundException {
+    String buildHtmlPage(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("src/main/resources/static/html/" + fileName));
         StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNextLine()) {
@@ -73,7 +93,12 @@ public class LoginController implements HttpHandler {
     }
 
     private void checkIfLogged() throws IOException {
-        response = buildHtmlPage("welcome-page.html");
-        sendResponse();
+        boolean isLogged = false;
+        if (isLogged) {
+            redirect("welcomePage");
+        } else {
+            this.response = buildHtmlPage("index.html");
+            sendResponse();
+        }
     }
 }
