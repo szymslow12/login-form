@@ -29,3 +29,24 @@
     width: 100px;
     padding: 10px;
 }
+
+h1 {
+    text-align: center;
+    color: red;
+    text-shadow: 1px 10px 51px black;
+    font-size: 100px;
+}
+
+#button-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#logout-button {
+    width: 200px;
+    height: 75px;
+    font-size: 20px;
+    
+}
