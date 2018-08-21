@@ -21,6 +21,7 @@ public class UserDataController extends LoginController implements HttpHandler {
 
         setResponse(constructResponse());
         try {
+            httpExchange.getResponseHeaders().set("Content-Type", "application/json");
             sendResponse();
         } catch (IOException e) {
             e.printStackTrace();
