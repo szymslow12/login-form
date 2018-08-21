@@ -1,6 +1,7 @@
 package com.codecool.loginForm;
 
 import com.codecool.loginForm.controllers.LoginController;
+import com.codecool.loginForm.controllers.UserDataController;
 import com.codecool.loginForm.controllers.WelcomePageController;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
@@ -12,6 +13,8 @@ public class App {
         httpServer.createContext("/login", new LoginController());
 
         httpServer.createContext("/welcomePage", new WelcomePageController());
+
+        httpServer.createContext("/userData", new UserDataController());
 
         httpServer.createContext("/static", new Static());
 
