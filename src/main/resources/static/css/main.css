@@ -42,7 +42,7 @@ h1:hover {
     text-shadow: 1px 5px 50px black;
 }
 
-#button-container {
+.container {
     width: 100%;
     height: auto;
     display: flex;
