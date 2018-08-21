@@ -15,3 +15,12 @@ function setHeaderWithUserName() {
     xhttp.open("GET", "/userData", true);
     xhttp.send(null);
 }
+
+function logout() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+        window.location.href = "/login";
+    };
+    xhttp.open("POST", "/welcomePage", true);
+    xhttp.send(null);
+}
