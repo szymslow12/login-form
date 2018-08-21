@@ -17,18 +17,35 @@ public class WelcomePageController extends LoginController implements HttpHandle
     public void handle(HttpExchange httpExchange) {
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         setHttpExchange(httpExchange);
-
+        String method = httpExchange.getRequestMethod();
         try {
-            checkCookie(cookieStr);
-            if (user != null && user.isUserLogged()) {
-                setResponse(buildHtmlPage("welcome-page.html"));
-                sendResponse();
+            if (method.equalsIgnoreCase("GET")) {
+                handleGet(cookieStr);
             } else {
-                redirect("login");
+                logout(cookieStr);
             }
+
         } catch (Exception err) {
             err.printStackTrace();
         }
+    }
+
+
+    private void handleGet(String cookieStr) throws IOException {
+        checkCookie(cookieStr);
+        if (user != null && user.isUserLogged()) {
+            setResponse(buildHtmlPage("welcome-page.html"));
+            sendResponse();
+        } else {
+            redirect("login");
+        }
+    }
+
+    private void logout(String cookieStr) throws IOException {
+        String session = HttpCookie.parse(cookieStr).get(0).toString();
+        user = UserRepository.instance().getUserBySessionId(session);
+        user.setSessionId(null);
+        System.out.println(user + " logout");
     }
 
     private void checkCookie(String cookieStr) throws IOException {
