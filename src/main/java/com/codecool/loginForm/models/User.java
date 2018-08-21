@@ -38,4 +38,14 @@ public class User {
     public String getLastName() {
         return lastName;
     }
+
+
+    public String getLogin() {
+        return login;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
 }
