@@ -62,6 +62,10 @@ public class LoginController implements HttpHandler {
         if (user != null && user.getPassword().equals(formData.get("password"))) {
             user.setSessionId(sessionId);
             redirect("welcomePage");
+        } else {
+            this.response = "<html><body><script> alert('Bad login or password!'); window.location.href = '/login';" +
+                    "</script></body><html>";
+            sendResponse();
         }
     }
 
