@@ -1,23 +1,25 @@
 package com.codecool.loginForm.controllers;
 
+import com.codecool.loginForm.models.User;
+import com.codecool.loginForm.models.UserRepository;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import java.net.HttpCookie;
 
 
 public class WelcomePageController extends LoginController implements HttpHandler {
 
-//    private HttpExchange httpExchange;
-//    String response;
-
     @Override
     public void handle(HttpExchange httpExchange) {
-
+        String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         setHttpExchange(httpExchange);
-//        this.httpExchange = httpExchange;
-        boolean isLogged = false;
+
+        UserRepository userRepository = UserRepository.instance();
+        User user = userRepository.getUserBySessionId(HttpCookie.parse(cookieStr).get(0).toString());
+
         try {
-            if (isLogged) {
+            if (user != null && user.isUserLogged()) {
                 setResponse(buildHtmlPage("welcome-page.html"));
                 sendResponse();
             } else {
