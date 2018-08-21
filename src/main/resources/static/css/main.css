@@ -32,9 +32,14 @@
 
 h1 {
     text-align: center;
-    color: red;
-    text-shadow: 1px 10px 51px black;
+    color: black;
+    text-shadow: 1px 5px 50px red;
     font-size: 100px;
+}
+
+h1:hover {
+    color: red;
+    text-shadow: 1px 5px 50px black;
 }
 
 #button-container {
@@ -48,5 +53,4 @@ h1 {
     width: 200px;
     height: 75px;
     font-size: 20px;
-    
 }
