@@ -15,6 +15,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String toString() {
+        return "Login: " + login + " Fullname: " + firstName + " " + lastName + " Is logged: " + isUserLogged() + " Session: " + sessionId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
