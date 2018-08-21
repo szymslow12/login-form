@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-
+    private static UserRepository userRepository;
     private List<User> userList;
 
-    public UserRepository() {
+    private UserRepository() {
         userList = new ArrayList<>();
         addUsersToRepository();
     }
@@ -18,11 +18,34 @@ public class UserRepository {
     }
 
     public User getUserByLogin(String login) {
-        for (User user: userList) {
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
             if (user.getLogin().equals(login)) {
                 return user;
             }
         }
         return null;
+    }
+
+
+    public User getUserBySessionId(String sessionId) {
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
+            String userSession = user.getSessionId();
+            if (userSession != null && userSession.equals(sessionId)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+    public static UserRepository instance() {
+        if (userRepository == null) {
+            userRepository = new UserRepository();
+            return userRepository;
+        } else {
+            return userRepository;
+        }
     }
 }
